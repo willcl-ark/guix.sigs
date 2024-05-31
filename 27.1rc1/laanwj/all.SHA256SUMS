@@ -9,7 +9,7 @@ d09d553d5bec51f31dff0cc7f497434c4829768aec592de35cf13b48d66dbce8  bitcoin-27.1rc
 e93682d1f73085fb062f2aa8dee87f93119e1ca9cbd202d044fcf2dd5c389c09  bitcoin-27.1rc1-codesignatures-27.1rc1.tar.gz
 5fca71272a4f938f221aa049ca3e1fb6dbee43acc606e645b09be34ba23095de  bitcoin-27.1rc1.tar.gz
 c8cab7593a7d6e4e60f71092e66be04e535b3afdadaca3078cc7a9fc9c169a33  bitcoin-27.1rc1-powerpc64-linux-gnu-debug.tar.gz
-8a69a86c82e6a2b31512eceb9d1b8f5eeb8ceea538a8fb43ec35d0e28fb4089a  bitcoin-27.1rc1-powerpc64-linux-gnu.tar.gz
+8a69a86c82e6a2b31512eceb9d1b8f5eeb8caaa538a8fb43ec35d0e28fb4089a  bitcoin-27.1rc1-powerpc64-linux-gnu.tar.gz
 e1b64c116616f3fcff017d5c70a04932eaefe79dd23fa5f829cba1d3d263324d  bitcoin-27.1rc1-powerpc64le-linux-gnu-debug.tar.gz
 6761b07438018447ac49c84ccda587228a8a801a86baa2f2ef588fd17dc8f3b1  bitcoin-27.1rc1-powerpc64le-linux-gnu.tar.gz
 e0d1b97c98c4f8bd1f4148d4ce440b47c195183774404d634c3de1f01b937da1  bitcoin-27.1rc1-riscv64-linux-gnu-debug.tar.gz
