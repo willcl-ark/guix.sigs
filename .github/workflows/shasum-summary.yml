@@ -1,7 +1,7 @@
 name: comment a SHASUM summary for each changed release
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [ "main" ]
 
 jobs:
@@ -13,7 +13,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: show changed files
-        run: git diff --no-commit-id --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+        run: |
+          git show ${{ github.event.pull_request.base.sha }}
+          git show ${{ github.event.pull_request.head.sha }}
+          git diff --no-commit-id --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
       - name: run shasum-summary
         run: python3 contrib/shasum-summary/main.py ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} > comment
       - name: show comment
