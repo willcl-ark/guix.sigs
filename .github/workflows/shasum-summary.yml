@@ -21,6 +21,7 @@ jobs:
       - name: show comment
         run: cat comment
       - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
         with:
           name: shasum-comment
           path: comment
