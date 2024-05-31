@@ -20,8 +20,12 @@ jobs:
         run: python3 contrib/shasum-summary/main.py ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} > comment
       - name: show comment
         run: cat comment
+      - name: Store issue number
+        run: echo ${{ github.event.number }} > issue-number
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: shasum-comment
-          path: comment
+          path: |
+            comment
+            issue-number
