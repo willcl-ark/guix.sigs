@@ -1,27 +1,31 @@
 name: comment a SHASUM summary for each changed release
 
 on:
-  pull_request:
-    branches: [ "main" ]
+  pull_request_target:
+    branches: ["main"]
 
 jobs:
   comment-summary:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: ${{ github.event.pull_request.commits }} 
+          fetch-depth: 0
+      - name: set base and head sha
+        run: |
+          echo "BASE_SHA=$(jq -r '.pull_request.base.sha' < "$GITHUB_EVENT_PATH")" >> $GITHUB_ENV
+          echo "HEAD_SHA=$(jq -r '.pull_request.head.sha' < "$GITHUB_EVENT_PATH")" >> $GITHUB_ENV
       - name: show changed files
-        run: git diff --no-commit-id --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff --no-commit-id --name-only $BASE_SHA..$HEAD_SHA
       - name: run shasum-summary
-        run: python3 contrib/shasum-summary/main.py ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} > comment
+        run: python3 contrib/shasum-summary/main.py $BASE_SHA..$HEAD_SHA > comment
       - name: show comment
         run: cat comment
       - uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('node:fs');
+            const fs = require('fs');
             fs.readFile('comment', 'utf8', (err, comment) => {
               if (err) {
                 console.error(err);
@@ -32,7 +36,7 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: "${{ github.event.pull_request.head.sha }}\n\n" + comment
+                  body: process.env.HEAD_SHA + "\n\n" + comment
                 });
               }
             });
