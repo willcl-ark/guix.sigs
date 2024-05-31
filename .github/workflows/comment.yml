@@ -1,0 +1,35 @@
+name: Comment on PR
+
+on:
+  workflow_run:
+    workflows: ["SHASUM summary"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: shasum-comment
+          github-token: ${{ secrets.GH_PAT }} # token with actions:read permissions on target repo
+          repository: willcl-ark/guix.sigs
+          run-id: ${{github.event.workflow_run.id }}
+      - name: 'Comment on PR'
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            var fs = require('fs');
+            var issue_number = Number(fs.readFileSync('comment'));
+            await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: "${{ github.event.pull_request.head.sha }}\n\n" + comment
+            });
+
