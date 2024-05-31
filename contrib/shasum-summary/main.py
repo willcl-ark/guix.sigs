@@ -2,11 +2,13 @@ import glob
 import string
 import argparse
 import subprocess
+import sys
 
 USERNAME_ALPHABET = list(string.ascii_letters)
 SYMBOLS = ["◆", "▞", "▄", "▀", "▌", "▐", "▚"]
 SYMBOL_MATCH = "█"
 SYMBOL_MISSING = "X"
+EXIT_CODE = 0
 
 
 def changed_files(diffrange):
@@ -57,12 +59,14 @@ def read_files(changed_files):
 
 
 def hash_to_symbol(hash, hashes):
+    global EXIT_CODE
     # all hashes match
     if len(hashes) == 1:
         return SYMBOL_MATCH
     # Sorting the hashes by occurrence count descending allows us to
     # display the most common hash (if any) with the same symbol.
     # If no hashes match, we essentially pick a random symbol.
+    EXIT_CODE = 1
     sorted_hashes = dict(sorted(hashes.items(), reverse=True, key=lambda item: item[1]))
     return SYMBOLS[list(sorted_hashes.keys()).index(hash) % len(SYMBOLS)]
 
@@ -130,6 +134,7 @@ def main():
     changed_shasum_files = changed_files(args.diffrange)
     data = read_files(changed_shasum_files)
     print_summaries(data)
+    sys.exit(EXIT_CODE)
 
 
 if __name__ == "__main__":
