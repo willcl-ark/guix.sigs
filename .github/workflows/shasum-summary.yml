@@ -1,8 +1,11 @@
 name: comment a SHASUM summary for each changed release
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [ "main" ]
+
+permissions:
+  pull-requests: write
 
 jobs:
   comment-summary:
@@ -18,21 +21,8 @@ jobs:
         run: python3 contrib/shasum-summary/main.py ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} > comment
       - name: show comment
         run: cat comment
-      - uses: actions/github-script@v7
+      - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          script: |
-            const fs = require('node:fs');
-            fs.readFile('comment', 'utf8', (err, comment) => {
-              if (err) {
-                console.error(err);
-                return;
-              }
-              if (comment.length > 0) {
-                github.rest.issues.createComment({
-                  issue_number: context.issue.number,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  body: "${{ github.event.pull_request.head.sha }}\n\n" + comment
-                });
-              }
-            });
+          message: |
+            "${{ github.event.pull_request.head.sha }}"
+          path: comment
