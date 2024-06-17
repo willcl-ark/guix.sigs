@@ -12,17 +12,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout the base branch
+        uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
+
+      - name: Fetch the head branch
+        run: |
+          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
+          git checkout ${{ github.event.pull_request.head.ref }}
+
       - name: show changed files
         run: git diff --no-commit-id --name-only ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+
       - name: run shasum-summary
         run: python3 contrib/shasum-summary/main.py ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} > comment
+
       - name: show comment
         run: cat comment
+
+      - name: add sha to comment
+        run: echo "${{ github.event.pull_request.head.sha }}" >> comment
+
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          message: |
-            "${{ github.event.pull_request.head.sha }}"
           path: comment
