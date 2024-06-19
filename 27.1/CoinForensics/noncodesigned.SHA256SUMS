@@ -7,7 +7,7 @@ b91767a820ccc3f5149a921249c95a4f06d2a4832db5fa1c02178282c0335b22  bitcoin-27.1-a
 ad4a3fd484077224a82dd56d194efb6e614467f413ab1dfb8776da4d08a4c227  bitcoin-27.1-arm64-apple-darwin.tar.gz
 0c1051fd921b8fae912f5c2dfd86b085ab45baa05cd7be4585b10b4d1818f3da  bitcoin-27.1.tar.gz
 3a058dbefa68439b0c4f54f4c71f135c6ff2bb46469e09550f1d599a64568d96  bitcoin-27.1-powerpc64-linux-gnu-debug.tar.gz
-69dbc7ca9a676f1471c88cf078cd559447ce47ad325a965331edaee846685fdb  bitcoin-27.1-powerpc64-linux-gnu.tar.gz
+69dbc7ca9a676f1471c88cf078cd559457ce47ad325a965331edaee846685fdb  bitcoin-27.1-powerpc64-linux-gnu.tar.gz
 418f298ab96599986a3c2abc4e5c73f6c3727b1de11d4e26f539c4fdc57e8973  bitcoin-27.1-powerpc64le-linux-gnu-debug.tar.gz
 f22157123133da4a91439e7e115191a08087fe71d000aa7c445df588cfcd5113  bitcoin-27.1-powerpc64le-linux-gnu.tar.gz
 19ed4f547e7ff67b81feb97a610b56c93c7176674aef661e5e72133f33a7a6ec  bitcoin-27.1-riscv64-linux-gnu-debug.tar.gz
