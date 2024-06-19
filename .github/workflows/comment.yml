@@ -9,7 +9,6 @@ on:
 jobs:
   comment:
     permissions:
-      actions: read
       pull-requests: write
     runs-on: ubuntu-latest
     if: >
