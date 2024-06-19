@@ -8,6 +8,9 @@ on:
 
 jobs:
   comment:
+    permissions:
+      actions: read
+      pull-requests: write
     runs-on: ubuntu-latest
     if: >
       github.event.workflow_run.event == 'pull_request' &&
